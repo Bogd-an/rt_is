@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python-envs.defaultEnvManager": "ms-python.python:venv",
+		"files.exclude": {
+			"*.code-workspace": true,
+			".venv":true
+		},
+	},
+	"extensions":{
+		"recommendations": [
+			"ms-python.python",
+			"ms-toolsai.jupyter",
+			"tomoki1207.pdf"
+		]
+	}
+}
