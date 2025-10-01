@@ -5,25 +5,27 @@ from PyQt5 import uic, QtGui
 from PyQt5.QtWidgets import QApplication, QWidget
 from qasync import QEventLoop, asyncSlot
 
-ESP32_WS_URL = "ws://ESP32cam1.local/ws"
+ESP32_WS_URL = "10.246.76.249/ws"
 
 
 class LEDControl(QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi("led_control.ui", self)
-        for name in ("status_label", "pushButton_on", "pushButton_off", "led_indicator", "log_view"):
-                setattr(self, name, self.findChild(type(self.findChild(QWidget, name)), name))
+        for name in ("status_label", "button_on", "button_off", "led_indicator", "log_view", "button_ws"):
+            setattr(self, name, self.findChild(type(self.findChild(QWidget, name)), name))
 
         # Початковий стан лампочки — вимкнена
         self.set_led_image("off")
-        
+
         self.button_on.clicked.connect(lambda: self.send_command("on"))
         self.button_off.clicked.connect(lambda: self.send_command("off"))
+        self.button_ws.clicked.connect(lambda: asyncio.ensure_future(self.connect_ws()))
 
         self.ws = None
         self.is_running = True
         asyncio.ensure_future(self.connect_ws())
+        asyncio.ensure_future(self.ws_status_printer())   # запуск статус-логера
 
     def set_led_image(self, state):
         pixmap = QtGui.QPixmap(f"led_{state}.png")
@@ -34,6 +36,10 @@ class LEDControl(QWidget):
         self.log_view.verticalScrollBar().setValue(self.log_view.verticalScrollBar().maximum())
 
     async def connect_ws(self):
+        if self.ws and self.ws.open:
+            self.status_label.setText("Already connected")
+            return
+
         while self.is_running:
             try:
                 self.ws = await websockets.connect(ESP32_WS_URL)
@@ -44,6 +50,15 @@ class LEDControl(QWidget):
                 self.status_label.setText(f"Error: {e}")
                 self.ws = None
                 await asyncio.sleep(1)
+
+    async def ws_status_printer(self):
+        """Раз у 6 секунд писати стан з'єднання"""
+        while self.is_running:
+            if self.ws and self.ws.open:
+                self.append_log("[WS STATUS] Connected")
+            else:
+                self.append_log("[WS STATUS] Disconnected")
+            await asyncio.sleep(6)
 
     @asyncSlot()
     async def send_command(self, command):

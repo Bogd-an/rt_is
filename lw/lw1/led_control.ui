@@ -6,43 +6,43 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>405</width>
+    <height>227</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton_on">
+  <widget class="QPushButton" name="button_off">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>70</y>
-     <width>158</width>
+     <x>190</x>
+     <y>60</y>
+     <width>101</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>pushButton_on</string>
+    <string>button_off</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_off">
+  <widget class="QPushButton" name="button_on">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>70</y>
-     <width>158</width>
+     <x>300</x>
+     <y>60</y>
+     <width>91</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>pushButton_off</string>
+    <string>button_on</string>
    </property>
   </widget>
   <widget class="QLabel" name="led_indicator">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>300</x>
      <y>110</y>
      <width>81</width>
      <height>61</height>
@@ -55,23 +55,26 @@
   <widget class="QLabel" name="status_label">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>200</x>
      <y>20</y>
-     <width>121</width>
+     <width>191</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string>status_label</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QPlainTextEdit" name="log_view">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>130</y>
-     <width>104</width>
-     <height>87</height>
+     <x>20</x>
+     <y>10</y>
+     <width>161</width>
+     <height>191</height>
     </rect>
    </property>
    <property name="readOnly">
@@ -79,6 +82,19 @@
    </property>
    <property name="plainText">
     <string>log_view</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_ws">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>100</y>
+     <width>101</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>button_ws</string>
    </property>
   </widget>
  </widget>
