@@ -114,6 +114,12 @@ void setup()
     server.begin();
 
     Serial.println("Web server started!");
+    // ==== HTTP відповідь з IP та mDNS ====
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        String response = "ESP32 IP: " + WiFi.localIP().toString() +
+                          "\nMDNS: " + String(hostname) + ".local";
+        request->send(200, "text/plain", response);
+    });
 }
 
 void loop()
