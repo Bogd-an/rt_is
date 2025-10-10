@@ -5,17 +5,16 @@ from PyQt5 import uic, QtGui
 from PyQt5.QtWidgets import QApplication, QWidget
 from qasync import QEventLoop, asyncSlot
 
-ESP32_WS_URL = "10.246.76.249/ws"
+ESP32_WS_URL = "ws://10.225.226.26/ws"
 
 
 class LEDControl(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi("led_control.ui", self)
+        uic.loadUi("ui\led_control.ui", self)
         for name in ("status_label", "button_on", "button_off", "led_indicator", "log_view", "button_ws"):
             setattr(self, name, self.findChild(type(self.findChild(QWidget, name)), name))
 
-        # Початковий стан лампочки — вимкнена
         self.set_led_image("off")
 
         self.button_on.clicked.connect(lambda: self.send_command("on"))
@@ -25,10 +24,10 @@ class LEDControl(QWidget):
         self.ws = None
         self.is_running = True
         asyncio.ensure_future(self.connect_ws())
-        asyncio.ensure_future(self.ws_status_printer())   # запуск статус-логера
+        asyncio.ensure_future(self.ws_status_printer())
 
     def set_led_image(self, state):
-        pixmap = QtGui.QPixmap(f"led_{state}.png")
+        pixmap = QtGui.QPixmap(f"ui\led_{state}.png")
         self.led_indicator.setPixmap(pixmap)
 
     def append_log(self, message):
