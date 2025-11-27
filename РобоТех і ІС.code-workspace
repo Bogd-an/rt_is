@@ -1,21 +1,25 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"python-envs.defaultEnvManager": "ms-python.python:venv",
-		"files.exclude": {
-			"*.code-workspace": true,
-			".venv":true
-		},
-	},
-	"extensions":{
-		"recommendations": [
-			"ms-python.python",
-			"ms-toolsai.jupyter",
-			"tomoki1207.pdf"
-		]
-	}
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "python-envs.defaultEnvManager": "ms-python.python:venv",
+        
+        // ДОДАТИ ЦЕЙ РЯДОК (вказує шлях до python.exe у вашому .venv):
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+
+        "files.exclude": {
+            "*.code-workspace": true,
+            ".venv": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-toolsai.jupyter",
+            "tomoki1207.pdf"
+        ]
+    }
 }
