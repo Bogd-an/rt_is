@@ -8,8 +8,7 @@ from PyQt5 import uic, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QWidget
 from qasync import QEventLoop, asyncSlot
 
-IP = '10.47.84.26'
-
+IP = '172.18.56.26'
 ESP32_WS_URL = f"ws://{IP}:81/ws"       # ЗАМІНІТЬ НА СВІЙ
 ESP32_VIDEO_URL = f"http://{IP}/video"  # ЗАМІНІТЬ НА СВІЙ
 
@@ -19,7 +18,7 @@ ANGLE_THRESHOLD = 0.15  # Радіан ~ 8.5 градусів
 class VideoControl(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi("ui/led_control.ui", self)
+        uic.loadUi("ui/auto_contro.ui", self)
 
         for name in ("start_stream_button", 
                      "stop_stream_button", 
