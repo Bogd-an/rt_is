@@ -1,0 +1,8 @@
+
+cd /d "%~dp0"
+
+.venv\Scripts\activate.bat
+
+.venv\Scripts\python -m ipykernel install --user --name=my_venv_project --display-name "Py(.venv)"
+
+.venv\Scripts\python -m jupyter notebook "pw\pw4\pw.ipynb"
