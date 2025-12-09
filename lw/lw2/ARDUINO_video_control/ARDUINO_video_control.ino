@@ -1,3 +1,7 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial Serial1(2, 3); 
+
 const int ENA = 10; // PWM керування швидкістю двигуна A
 const int ENB = 11; // PWM керування швидкістю двигуна B
 const int IN1 = 12; // напрямок двигуна A
@@ -8,6 +12,7 @@ char buffer[20];
 int bufferIndex = 0;
 
 void setup() {
+  Serial1.begin(9600);
   Serial.begin(9600);
 
   pinMode(ENA, OUTPUT);
@@ -17,13 +22,14 @@ void setup() {
 
   motor(0, 0, 0, 0); // Зупинити двигуни на початку
 
-  Serial.println("Ready to receive");
-  Serial.flush();
+  Serial1.println("Ready to receive");
+  Serial1.println("Ready to receive");
+  Serial1.flush();
 }
 
 void loop() {
-  if (Serial.available()) {
-    char inChar = Serial.read();
+  if (Serial1.available()) {
+    char inChar = Serial1.read();
     if (inChar == '\n') {
       buffer[bufferIndex] = '\0';
 
@@ -33,10 +39,12 @@ void loop() {
       }
 
       handleCommand(buffer);
-      Serial.print(buffer);
-      Serial.println();
-      Serial.flush();
+      Serial1.print(buffer);
+      Serial1.println();
+      Serial1.flush();
       bufferIndex = 0;
+      Serial.print("Received command: ");
+      Serial.println(buffer);
     } else if (bufferIndex < sizeof(buffer) - 1) {
       buffer[bufferIndex++] = inChar;
     }
